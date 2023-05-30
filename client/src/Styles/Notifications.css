@@ -1,0 +1,19 @@
+.notification-container{
+    border: 1px solid black;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    padding: 5%;
+    margin-top: 10%;
+}
+
+.noti-img img{
+    /* border: solid; */
+    width: 50%;
+    border-radius: 50%;
+}
+
+
+.body{
+    margin-left: 10px;
+}

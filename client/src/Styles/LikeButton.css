@@ -1,0 +1,33 @@
+.fa fa-thumbs-up{
+  color: gray;
+}
+
+.like-container{
+  display: flex;
+  align-items: center;
+  margin-left: 7%;
+}
+
+
+.like-container h4{
+  font-size: 20px;
+}
+
+
+
+.like-container p{
+  font-size: 36px;
+}
+
+.Liked{
+  color: red;
+}
+
+
+.Unliked{
+  color: gray;
+}
+
+.numberoflikes{
+  font-size: 12px;
+}

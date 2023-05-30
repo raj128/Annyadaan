@@ -1,0 +1,292 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Quicksand:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Quicksand:wght@300&family=Work+Sans:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Work Sans', sans-serif;
+}
+
+
+body{
+    font-family: 'Poppins', sans-serif;
+}
+
+header{
+    position: relative;
+    width: 80%;
+    background: #f4f8fb;
+    display: flex;
+}
+
+header aside{
+    width:20%;
+    height: 100%;
+    background:#fff;
+    padding: 15px 25px 15px 30px;
+}
+
+header section{
+    position: relative;
+    left:35%;
+    width: 55%;
+    height: 100%;
+}
+
+.logo{
+    margin-right: 1.5rem;
+}
+
+.logo img{
+    width: 100%;
+    background: transparent;
+}
+
+.left{
+    position: fixed;
+    left:0;
+    width: 24%;
+    /* height: 80%; */
+}
+
+
+.right{
+    position: fixed;
+    right: 0;
+    width: 24%;
+    /* height: 80%; */
+}
+
+header aside ul{
+    list-style-type: none;
+    margin-top: 50px;
+}
+
+
+header aside ul li{
+    padding: 10px 0px;
+    margin-top: 10px;
+}
+
+header aside ul li a{
+    text-decoration: none;
+    color: rgb(0,0,0,.5);
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    transition: .1s linear;
+}
+
+header aside ul li a:hover{
+    color: red;
+}
+
+header aside ul li a i{
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+
+header aside ul li:nth-child(7){
+    border-right: 3px solid red;
+}
+
+
+
+header aside button{
+    margin-top: 40px;
+    padding: 10px 50px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    color: #fff;
+    background: red;
+    transition: .2s linear;
+    cursor: pointer;
+}
+
+
+
+header aside button:hover{
+    background: rgba(241, 38, 38, 0.5);
+}
+
+
+header section nav{
+    width:100%;
+    height: 8%;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
+}
+
+
+header section nav ul{
+   list-style: none;
+   display: flex;
+   align-items: center;
+}
+
+
+
+header section nav ul li{
+    padding: 3px 25px 3px 0px;
+}
+
+
+
+header section nav ul li a{
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    color: #000;
+    transition: .3s linear;
+}
+
+
+header section nav ul li a:hover{
+    color: gray;
+}
+
+
+
+header aside .search_bar{
+    margin-top: 20px;
+    /* margin-right: 10px; */
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:#f7f8fb;
+    padding: 8px 15px;
+    border-radius: 5px;
+}
+
+
+header aside .search_bar input{
+    width: 90%;
+    padding: 3px 15px;
+    border: none;
+    outline: none;
+    font-size: 12px;
+    background: none;
+}
+
+
+header aside .search_bar .bi{
+    font-size: 14px;
+}
+
+
+header aside .user{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+header aside .user h3{
+    font-size: 20px;
+}
+
+
+header aside .user img{
+    margin-left: 10px;
+    width: 30%;
+    height: 30%;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+
+.main-img{
+    content : '';
+    width: 100%;
+    height: 300px;
+    background: url(../images/img/Food.jpg) no-repeat center center/cover;
+    border-radius: 0px 0px 30px 30px;
+    opacity: .9;
+}
+
+
+.main-img h1{
+    font-weight: 900;
+    position:absolute;
+    color: white;
+    top: 200px;
+    left: 30px;
+    font-size: 43px;
+    /* font-family: 'Montserrat', sans-serif; */
+    font-family: 'Quicksand', sans-serif;
+}
+
+
+header aside .auth-buttons button{
+    margin-top: 0;
+    align-items: center;
+    padding: 10px 35px;
+    text-align: center;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    color: #fff;
+    background: red;
+    transition: .2s linear;
+    cursor: pointer;
+}
+
+.auth-buttons{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.signin-buttons a{
+    display: flex;
+    align-items: center;
+}
+
+
+.signin-button button{
+    margin-left:10px;
+    margin-right:10px;
+    font-size: 15px;
+}
+
+
+.follower-following{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.follower-line{
+    text-decoration: none;
+    font-size:20px;
+    font-weight: 600;
+    color: #585656;
+    padding:1.5rem;
+}
+
+.follower-pic img {
+    margin: 5%;
+    width: 35%;
+    border:1px;
+    border-radius:50%;
+}
+.follower-container{
+    display:flex;
+    flex-direction:row;
+    justify-content: space-around;
+}
+.fname{
+font-size:85%;
+padding: 9% 12% 0 0;
+}
+
+
