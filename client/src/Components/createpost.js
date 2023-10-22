@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
 import '../Styles/createpost.css'
 function CreatePost() {
   const [title, setName] = useState('');
@@ -86,7 +87,7 @@ function CreatePost() {
         Image:
         <input type="file" onChange={e => setImage(e.target.files[0])} required />
       </label> */}
-      <br /><button><input type="submit" value="Submit"/></button>
+      <br /><button><input type="submit" value="Submit" onSubmit={() => {toast.success('This is Toast Notification for Success');}}/></button>
       
     </form>
   );
