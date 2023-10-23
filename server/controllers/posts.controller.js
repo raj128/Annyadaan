@@ -33,7 +33,7 @@ export const getPosts = async (req, res, next) => {
     next(err);
   }
 };
-export const createPost = (req, res,next) => {
+export const createPost = (req, res, next) => {
   const {
     title,
     venue,
@@ -79,7 +79,7 @@ export const createPost = (req, res,next) => {
     });
 };
 
-export const like = (req, res,next) => {
+export const like = (req, res, next) => {
   posts
     .findByIdAndUpdate(
       req.body.postId,
@@ -98,7 +98,7 @@ export const like = (req, res,next) => {
       res.status(422).json({ Error: err });
     });
 };
-export const unlike = (req, res,next) => {
+export const unlike = (req, res, next) => {
   posts
     .findByIdAndUpdate(
       req.body.postId,
@@ -117,7 +117,7 @@ export const unlike = (req, res,next) => {
       res.status(422).json({ Error: err });
     });
 };
-export const comment = (req, res,next) => {
+export const comment = (req, res, next) => {
   const comment = { Text: req.body.text, postedBy: req.body._id };
   posts
     .findByIdAndUpdate(
@@ -168,32 +168,67 @@ export const book = async (req, res) => {
   }
 };
 
-export const getDonee = async (req, res, next) => {
+export const getDonees = async (req, res, next) => {
   try {
-    const postsdata = await posts
-      .find({ postedBy: req.user._id })
-      .populate("postedBy", "_id name")
+    const userId = req.user._id; // Assuming this is the user's ID
+
+    const posts = await PostModel.find({ postedBy: userId })
+      .populate({
+        path: 'donees.donee', // Populate the 'donees.donee' field with user data
+        select: 'name', // Select the 'name' field from the referenced user model
+      })
       .sort("-createdAt")
-      .then((data) => {
-        let list = [];
-        data.map((item) => {
-          list.push({
-            _id: item.id,
-            title: item.title,
-            postedBy: item.postedBy,
-            venue: item.venue,
-            city: item.city,
-            img_url: item.img_url,
-            likes: item.likes,
-            comments: item.comments,
-            bookers: item.booker,
-            meal_size: item.meal_size,
-            food_tags: item.food_tags,
-            expirey_date: item.expirey_date,
-          });
-        });
-        res.status(200).json({ list });
-      });
+      .exec();
+
+    const list = posts.map((item) => {
+      const doneesInfo = item.donees.map((donee) => ({
+        name: donee.donee.name, // Access donee's name from the populated field
+        bookingTime: donee.bookingTime, // Assuming booking time is a field in donee
+      }));
+
+      return {
+        _id: item.id,
+        title: item.title,
+        venue: item.venue,
+        city: item.city,
+        donees: doneesInfo,
+        meal_size: item.meal_size,
+        food_tags: item.food_tags,
+        expirey_date: item.expirey_date,
+      };
+    });
+
+    res.status(200).json({ list });
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const getOrders = async (req, res, next) => {
+  try {
+    const doneeId = req.user._id; // Assuming this is the donee's user ID
+
+    const posts = await PostModel.find({ "donees.donee": doneeId })
+      .sort("-donees.bookingTime")
+      .exec();
+
+    const list = posts.map((post) => {
+      // Find the specific donee entry in the 'donees' array
+      const doneeEntry = post.donees.find((donee) => donee.donee.toString() === doneeId);
+
+      return {
+        _id: post.id,
+        title: post.title,
+        Owner: post.postedBy,
+        venue: post.venue,
+        city: post.city,
+        food_tags: post.food_tags,
+        expirey_date: post.expirey_date,
+        bookingTime: doneeEntry ? doneeEntry.bookingTime : null, // Access booking time if found
+      };
+    });
+
+    res.status(200).json({ list });
   } catch (err) {
     next(err);
   }
