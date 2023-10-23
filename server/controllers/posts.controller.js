@@ -33,7 +33,7 @@ export const getPosts = async (req, res, next) => {
     next(err);
   }
 };
-export const createPost = (req, res) => {
+export const createPost = (req, res,next) => {
   const {
     title,
     venue,
@@ -79,7 +79,7 @@ export const createPost = (req, res) => {
     });
 };
 
-export const like = (req, res) => {
+export const like = (req, res,next) => {
   posts
     .findByIdAndUpdate(
       req.body.postId,
@@ -98,7 +98,7 @@ export const like = (req, res) => {
       res.status(422).json({ Error: err });
     });
 };
-export const unlike = (req, res) => {
+export const unlike = (req, res,next) => {
   posts
     .findByIdAndUpdate(
       req.body.postId,
@@ -117,7 +117,7 @@ export const unlike = (req, res) => {
       res.status(422).json({ Error: err });
     });
 };
-export const comment = (req, res) => {
+export const comment = (req, res,next) => {
   const comment = { Text: req.body.text, postedBy: req.body._id };
   posts
     .findByIdAndUpdate(
@@ -140,25 +140,26 @@ export const comment = (req, res) => {
     });
 };
 export const book = async (req, res) => {
-  const { postId} = req.body;
+  // return res.status(404).json({ error: "Post not found888" });
+  const { postId } = req.body;
   const bookingTime = new Date();
 
   try {
-    const updatedPost = await PostModel.findByIdAndUpdate(
+    const updatedPost = await posts.findByIdAndUpdate(
       postId,
       {
         $push: {
           donees: {
             donee: req.user._id,
-            bookingTime: bookingTime
-          }
-        }
+            bookingTime: bookingTime,
+          },
+        },
       },
       { new: true }
     );
 
     if (!updatedPost) {
-      return res.status(404).json({ error: 'Post not found' });
+      return res.status(404).json({ error: "Post not found" });
     }
 
     res.status(200).json({ _id: updatedPost._id });
@@ -170,7 +171,7 @@ export const book = async (req, res) => {
 export const getDonee = async (req, res, next) => {
   try {
     const postsdata = await posts
-      .find({ postedBy : req.user._id })
+      .find({ postedBy: req.user._id })
       .populate("postedBy", "_id name")
       .sort("-createdAt")
       .then((data) => {
