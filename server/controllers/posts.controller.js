@@ -172,10 +172,11 @@ export const getDonees = async (req, res, next) => {
   try {
     const userId = req.user._id; // Assuming this is the user's ID
 
-    const posts = await PostModel.find({ postedBy: userId })
+    const posts = await posts
+      .find({ postedBy: userId })
       .populate({
-        path: 'donees.donee', // Populate the 'donees.donee' field with user data
-        select: 'name', // Select the 'name' field from the referenced user model
+        path: "donees.donee", // Populate the 'donees.donee' field with user data
+        select: "name", // Select the 'name' field from the referenced user model
       })
       .sort("-createdAt")
       .exec();
@@ -208,18 +209,22 @@ export const getOrders = async (req, res, next) => {
   try {
     const doneeId = req.user._id; // Assuming this is the donee's user ID
 
-    const posts = await PostModel.find({ "donees.donee": doneeId })
+    const wposts = await posts
+      .find({ "donees.donee": doneeId })
+      .populate("postedBy", "name")
       .sort("-donees.bookingTime")
       .exec();
 
-    const list = posts.map((post) => {
+    const list = wposts.map((post) => {
       // Find the specific donee entry in the 'donees' array
-      const doneeEntry = post.donees.find((donee) => donee.donee.toString() === doneeId);
+      const doneeEntry = post.donees.find(
+        (donee) => donee.donee.toString() === doneeId
+      );
 
       return {
         _id: post.id,
         title: post.title,
-        Owner: post.postedBy,
+        Owner: post.postedBy.name,
         venue: post.venue,
         city: post.city,
         food_tags: post.food_tags,
@@ -227,7 +232,6 @@ export const getOrders = async (req, res, next) => {
         bookingTime: doneeEntry ? doneeEntry.bookingTime : null, // Access booking time if found
       };
     });
-
     res.status(200).json({ list });
   } catch (err) {
     next(err);
