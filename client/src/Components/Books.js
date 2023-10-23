@@ -11,9 +11,10 @@ const Books = ({post}) => {
         <h1>Title : {post?.title}</h1>
       </div>
         <div>
+            <h3> Owner : {post?.Owner}</h3>
             <h3> Venue : {post?.venue}</h3>
             <h3> Expiry Date : {post?.expirey_date.slice(0,10)}</h3>
-            <h3> Date : {post?.time}</h3>
+            <h3> Booking Date : {post?.time}</h3>
         </div>
         <Button>Cancel Booking</Button>
       </div>

@@ -61,13 +61,18 @@ export default function FullWidthTabs() {
       try {
         const response = await axios.get(webApiUrl, { headers: { Authorization: `Bearer ${dataStr.token}` } });
         setOrders(response.data.list);
+        console.log(orders);
       } catch (error) {
+        
         console.error(error);
       }
     }
     fetchPosts();
     
   }, []);
+
+
+
 
 
   const handleChange = (event, newValue) => {
@@ -104,9 +109,6 @@ export default function FullWidthTabs() {
             {orders.map(orders => (
               <Books key={orders._id} post={orders} />
             ))}
-
-            <Books></Books>
-            <Books></Books>
           </TabPanel>
           <TabPanel value={value} index={1} dir={theme.direction}>
             <DonnieContainer></DonnieContainer>
