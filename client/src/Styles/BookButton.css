@@ -1,0 +1,27 @@
+.booking-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.book-button{
+    font-size: 10px;
+    display: flex;
+    color: white;
+    flex-direction: column;
+}
+
+.book-button h1 {
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    /* flex-direction: column; */
+}
+
+.book-button h4 {
+    color: white;
+    margin-top: -5%;
+    font-weight: lighter;
+    font-size: 11px;
+    /* flex-direction: column; */
+}
